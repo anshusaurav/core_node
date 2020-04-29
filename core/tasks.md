@@ -1,17 +1,23 @@
 1. Explain Node and V8 in your own words ? 
-// Answer here...
+// 
+
+V8 is a processor which is used to process javascript code. Its present in browser and well as node evironment. It is different from other engines such as spidermonkey and chakra
+
 
 2. Explain steps in REPL(here) and command to start REPL ?
-// Answer here...
+//Open console > type node and press enter
 
 3. Run `index.js` in the same directory as script writer using `node FILE_NAME.js` and output result of console here.
+hello World
 
 4. Require fs module and read `theory.md` using fs.readFile method in index.js file.
 
 5. Explain Buffer and different methods to create a buffer ?
+const buf = Buffer.alloc(10); // A buffer that only can accommodate 10 bytes.
+const buffer = Buffer.from("hello buffer"); // Create a buffer with content
 
 6. What is blocking code ? How is it different from non-blocking/async codes ? Correct blocking code in index.js to run asynchronously ?
-// Answer here ...
+// Synchronous code are blocking code. They stop the execution of program until they are completed, whereas async codes dont interrupt other program execution. It only delays the execution of callback function. 
 
 7. Request from browser `https://altcampus.io` and copy request, response and general headers into answer.js.
 
