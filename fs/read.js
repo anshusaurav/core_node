@@ -30,5 +30,27 @@ var fs = require('fs');
 //   - remove earlier content using fs.ftruncate
 //   - add new content using fs.writeFile
 //   - close the file at last using fs.close
-
+fs.open('./write.js',(err, fd) => {
+    if(err) {
+      console.log('Error: ', err);
+    } else {
+        fs.truncate('./write.js',fd.length, (err) => {
+          if(err) {
+            console.log('Error: ', err);
+          } else {
+              fs.writeFile('./write.js', "File written", (err) => {
+                if(err) {
+                  console.log('Error: ', err);
+                } else {
+                    fs.close(fd, (err) => {
+                      if(err) {
+                        console.log('Error: ', err);
+                      }
+                    })
+                }
+              })
+          }
+        })
+    }
+  })
 // 6. Delete the content of write.js using fs.unlink or unlinkSync method
