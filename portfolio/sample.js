@@ -1,31 +1,43 @@
-
-
-// var http = require('http');
-// var fs = require('fs');
-
-var server = http.createServer(requestHandler);
-
-function requestHandler(req, res) {
-  // handle all html file together
-  if(req.url === '/') {
-    // set appropriate headers
-    res.setHeader('Content-Type', 'text/html')
-    // read file and send chunked data in response
-    fs.createReadStream(file_path).pipe(res);
-    // for all css files
-  } else if(req.url.includes('css')) {
-    //handle css file here
-    // first set headers ie. 'text/css'
-    // read css file and send it in response using createReadStream
-
-    // for handling images
-  } else if(['png', 'jpg', 'jpeg'].indexOf(req.url.split('.').pop())) {
-    //send images here with appropraite content type
-  }
-  else {
-    res.statusCode = 400;
-    res.end('Page not found')
-  }
+const http = require('http');
+const fs = require('fs');
+let server = http.createServer(requestHandler);
+function requestHandler(req, res){
+    let str = req.url;
+    console.log(str);
+    if(str == '/' || str == '/index.html'){
+        res.setHeader('Content-Type', 'text/html');
+        fs.createReadStream('index.html').pipe(res);
+    }
+    else if(str.endsWith('.css')) {
+        res.setHeader('Content-Type', 'text/css');
+        fs.createReadStream(str.slice(1)).pipe(res);
+    }
+    else if(str.endsWith('.png')) {
+        res.setHeader('Content-Type', 'image/png');
+        fs.createReadStream(str.slice(1)).pipe(res);
+    }
+    else if(str.endsWith('.jpg')) {
+        res.setHeader('Content-Type', 'image/jpg');
+        fs.createReadStream(str.slice(1)).pipe(res);
+    }
+    else if(str == '/schedule'|| str == '/schedule.html'){
+        res.setHeader('Content-Type', 'text/html');
+        fs.createReadStream('schedule.html').pipe(res);
+    }
+    else if(str == '/speakers' || str == '/speakers.html'){
+        res.setHeader('Content-Type', 'text/html');
+        fs.createReadStream('speakers.html').pipe(res);
+    }
+    else if(str == '/venue' || str == '/venue.html'){
+        res.setHeader('Content-Type', 'text/html');
+        fs.createReadStream('venue.html').pipe(res);
+    }
+    else if(str == '/register' || str == '/register.html'){
+        res.setHeader('Content-Type', 'text/html');
+        fs.createReadStream('register.html').pipe(res);
+    }
+    else
+        res.end('404 Page not Found');
 }
 
-server.listen(3000);
+server.listen(3000, ()=>console.log('Server has started'));
